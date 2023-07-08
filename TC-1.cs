@@ -9,7 +9,7 @@ public class StateCensusAnalyserTests
     public void Test_NumberOfRecords_Matches()
     {
         // Arrange
-        string csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
+        string csvFilePath = "/Users/apple/Downloads/IndiaStateCensusData.csv";
         StateCensusAnalyser analyser = new StateCensusAnalyser(csvFilePath);
 
         // Act
