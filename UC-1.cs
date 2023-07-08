@@ -11,7 +11,7 @@ namespace State_Cencus
 
         public StateCensusAnalyser(string filePath)
         {
-            csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
+            csvFilePath = "/Users/apple/Downloads/IndiaStateCensusData.csv";
         }
 
         public IEnumerator<string[]> GetEnumerator()
