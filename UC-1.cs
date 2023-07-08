@@ -1,55 +1,28 @@
-using System;
-using System.Collections;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using State_Cencus;
 using System.Collections.Generic;
-using System.IO;
 
-namespace State_Cencus
+[TestClass]
+public class StateCensusAnalyserTests
 {
-    public class StateCensusAnalyser : IEnumerable<string[]>
+    [TestMethod]
+    public void Test_NumberOfRecords_Matches()
     {
-        private readonly string csvFilePath;
+        // Arrange
+        string csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
+        StateCensusAnalyser analyser = new StateCensusAnalyser(csvFilePath);
 
-        public StateCensusAnalyser(string filePath)
+        // Act
+        List<string[]> records = new List<string[]>();
+        foreach (string[] dataRow in analyser)
         {
-            csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
+            records.Add(dataRow);
         }
 
-        public IEnumerator<string[]> GetEnumerator()
-        {
-            using (StreamReader reader = new StreamReader(csvFilePath))
-            {
-                // Skip the header row
-                reader.ReadLine();
+        // Assert
+        int expectedRecordCount = 10; // Provide the expected number of records here
+        int actualRecordCount = records.Count;
 
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    yield return line.Split(',');
-                }
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        Assert.AreEqual(expectedRecordCount, actualRecordCount, "Number of records does not match");
     }
-
-    public class CSVStateCensus
-    {
-        public static void Main(string[] args)
-        {
-            string csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
-
-            StateCensusAnalyser analyser = new StateCensusAnalyser(csvFilePath);
-
-            foreach (string[] dataRow in analyser)
-            {
-                // Process the data row
-                Console.WriteLine(string.Join(", ", dataRow));
-            }
-        }
-    }
-
 }
-
