@@ -6,23 +6,24 @@ using System.Collections.Generic;
 public class StateCensusAnalyserTests
 {
     [TestMethod]
-    public void Test_NumberOfRecords_Matches()
+    [ExpectedException(typeof(StateCensusAnalyserException))]
+    public void Test_IncorrectCSVFile_RaisesException()
     {
         // Arrange
-        string csvFilePath = "/Users/apple/Downloads/IndiaStateCode.csv";
+        string csvFilePath = "path_to_incorrect_csv_file.csv";
         StateCensusAnalyser analyser = new StateCensusAnalyser(csvFilePath);
 
         // Act
-        List<string[]> records = new List<string[]>();
-        foreach (string[] dataRow in analyser)
-        {
-            records.Add(dataRow);
-        }
+        // No explicit action required, as the exception is expected to be raised
 
         // Assert
-        int expectedRecordCount = 10; // Provide the expected number of records here
-        int actualRecordCount = records.Count;
+        // Exception is expected to be raised due to incorrect CSV file
+    }
+}
 
-        Assert.AreEqual(expectedRecordCount, actualRecordCount, "Number of records does not match");
+public class StateCensusAnalyserException : Exception
+{
+    public StateCensusAnalyserException(string message) : base(message)
+    {
     }
 }
